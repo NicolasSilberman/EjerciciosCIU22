@@ -4,11 +4,16 @@ function buscarSerie() {
     const selector = document.querySelectorAll('input[type=checkbox]');
 
     for (let i = 0; i < serieBusqueda.length; i++) {
-        if (unaSerie.toLowerCase() == serieBusqueda[i].innerHTML.toLowerCase()) {
+        const titulo = serieBusqueda[i]
+        if (unaSerie.toLowerCase() == titulo.innerHTML.toLowerCase()) {
             selector[i].checked = 1;
+            titulo.style.backgroundColor = "blue"
+            titulo.style.color = "white"
         }
         else {
-           selector[i].checked = 0;
+            selector[i].checked = 0;
+            titulo.style.backgroundColor = "d1e7dd"
+            titulo.style.color = "black"
         }
     }
 }
@@ -55,4 +60,27 @@ function calculaPorcentaje() {
 
 window.onload = calculaPorcentaje;
 
-//Falta crear y editar Prueba de repo
+function crearSerie() {
+    const nombreSerie = document.getElementById('nombreNueva').value;
+    const cantidadTemporadas = document.getElementById('temporadasNueva').value;
+
+    let tblDatos = document.getElementById('idDeTabla').insertRow(-1);
+    let colC = tblDatos.insertCell(0)
+    let colN = tblDatos.insertCell(1)
+    let colT = tblDatos.insertCell(2)
+    let colV = tblDatos.insertCell(3)
+    let colP = tblDatos.insertCell(4)
+
+    colC.innerHTML = '<input class="form-check-input" type="checkbox">';
+    colN.innerHTML = nombreSerie;
+    colT.innerHTML = cantidadTemporadas;
+    colV.innerHTML = 0; 
+    colP.innerHTML = 0 +"%";
+
+    colN.classList.add("titulo");
+    colT.classList.add("temporadasTotales");
+    colV.classList.add("temporadasVistas");
+    colP.classList.add("porcentualVisto");
+}
+
+//Falta editar. AGREGAR CHEQUEO NUMERO NATURAL EN TEMPORADAS, REVISAR SUMADOR
