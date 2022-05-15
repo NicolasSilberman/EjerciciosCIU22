@@ -1,0 +1,119 @@
+<html>
+    <head>
+        <title>Tus Series</title>
+        <link rel="stylesheet" href="ParcialEstilo.css" type="text/css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    </head>
+   
+    <body>
+        <script src = "parcialJavaScript.js"></script>
+        
+        <div class = "cuerpo">
+            <div class = "bg-success flex flex-justify p-2">
+                <div><h2 class = "font-monospace fw-bolder text-light">Tus Series</h2></div>
+                <div><button type="button" class="btn-close btn-close-dark" aria-label="Close"></button></div>
+            </div>
+            <br>
+            <div class="input-group mb-3 p-1">
+                <input type="text" class="form-control" placeholder="Busque una serie" aria-label="Recipient's username" aria-describedby="basic-addon2" id = "buscada">
+                <button class="input-group-text btn btn-success" id="basic-addon2" onclick="buscarSerie()">Buscar</button>
+            </div>
+
+            <table class="table table-success table-bordered table-sm estiloTabla" id = "idDeTabla">
+                <tr>
+                    <th>Selección</th>
+                    <th>Nombre</th>
+                    <th>Temporadas</th>
+                    <th>Vistas</th>
+                    <th>%</th>
+                </tr>
+                <tr>
+                    <td><input class="form-check-input" type="checkbox"></td>
+                    <td class = "titulo">Cebollitas</td>
+                    <td class = "temporadasTotales">3</td>
+                    <td class = "temporadasVistas">2</td>
+                    <td class = "porcentualVisto"></td>
+                </tr>
+                <tr>
+                    <td><input class="form-check-input" type="checkbox"></td>
+                    <td class = "titulo">Chiquititas</td>
+                    <td class = "temporadasTotales">9</td>
+                    <td class = "temporadasVistas">3</td>
+                    <td class = "porcentualVisto"></td>
+                </tr>
+            </table>
+
+            <div class = "d-flex">
+                <div class = "p-1 flex-grow-1">
+                    <button class="tamañoBotonZoom btn btn-success btn-sm" onclick="sumadorVistas()">+</button>
+                    <button class="tamañoBotonZoom btn btn-success btn-sm" onclick="restadorVistas()">-</button>
+                </div>
+                <div class = "p-1">
+                    <button class="btn btn-success tamañoBotonComando" data-bs-toggle="modal" data-bs-target="#crearModal">Nueva</button>
+                    <button class="btn btn-success tamañoBotonComando" data-bs-toggle="modal" data-bs-target="#editarModal">Editar</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="crearModal" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                  <h5 class="modal-title" id="exampleModalLabel">Crear serie</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body bg-success bg-opacity-50">
+                    <div>
+                        <div class="input-group input-group-sm mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Nombre</span>
+                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" id ="nombreNueva" placeholder="Ingrese un nombre">
+                        </div>
+                        <div class="input-group input-group-sm mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Temporadas</span>
+                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" id ="temporadasNueva" placeholder="Ingrese una cantidad" onkeypress="return validaNatural(event);">
+                        </div>                         
+                    </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" onclick="crearSerie()">Crear</button>
+                  <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="editarModal" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                  <h5 class="modal-title" id="exampleModalLabel">Editar serie</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body bg-success bg-opacity-50" id = "cuerpoEdicion">
+                    <div>
+                        <div class="input-group input-group-sm mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Nombre</span>
+                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" id = "nombreEdit" >
+                        </div>
+                        <div class="input-group input-group-sm mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Temporadas</span>
+                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" id = "temporadaEdit" onkeypress="return validaNatural(event);">
+                        </div>
+                        <div class="input-group input-group-sm mb-3">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Vistas</span>
+                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" id = "vistasEdit" onkeypress="return validaNatural(event);"> 
+                        </div>                         
+                    </div>
+                </div>
+                <div class="modal-footer" id ="pieEdicion">
+                  <button type="button" class="btn btn-primary" id="botonEdicion" onclick="editarSerie()">Editar</button>
+                  <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+              </div>
+            </div>
+        </div>
+    </body>
+
+</html>
+
