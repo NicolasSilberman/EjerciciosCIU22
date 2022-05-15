@@ -54,3 +54,5 @@ function calculaPorcentaje() {
 }
 
 window.onload = calculaPorcentaje;
+
+//Falta crear y editar
